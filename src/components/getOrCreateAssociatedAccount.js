@@ -1,7 +1,7 @@
 import { PublicKey } from '@solana/web3.js';
 import {findAssociatedTokenAccountPublicKey, } from '../components/associatedAccounts';
 import { getAccountInfo } from '../utils/getAccountInfo'; 
-import {createAssociatedTokenAccount} from '../react components/AnyoneCanPay/AssociatedAccounts';
+import {createAssociatedTokenAccount} from '../react components/TransferToken/AssociatedAccounts';
 
 export const getOrCreateAssociatedAccount = async(owner, mint, payer) => {
     let pubOwner = new PublicKey(owner); 

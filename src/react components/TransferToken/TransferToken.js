@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {transferTokenHandler} from '../components/transferToken'
+import {transferTokenHandler} from '../../components/transferToken'
 
 const TransferToken = ({payer}) => {
     

@@ -6,6 +6,7 @@ import { sendTxUsingExternalSignature } from './externalWallet';
 import { getOrCreateAssociatedAccount } from './getOrCreateAssociatedAccount';
 
 
+
 export const transferTokenHandler = async(owner, 
     dest, 
     token,
@@ -20,15 +21,13 @@ export const transferTokenHandler = async(owner,
         tokenPub,
         payer.toString()
     )
+    console.log(tokenAssociatedAddress);
 
-    //ASSUMING THAT BOTH OWNER AND DESTINATION HAS AN ACCOUNT ASSOCIATED
     //Finding Associated Account of owner
     const assOwnerAccount = await findAssociatedTokenAccountPublicKey(ownerPub, tokenPub);
-    console.log(assOwnerAccount.toString());
 
-    // //Finding the Asscociated Account of destination
+    //Finding the Asscociated Account of destination
     const assDestAccount = await findAssociatedTokenAccountPublicKey(destPub, tokenPub);
-    console.log(assDestAccount.toString());
 
     const ix  = Token.createTransferInstruction(
             TOKEN_PROGRAM_ID, //PROGRAM_ID

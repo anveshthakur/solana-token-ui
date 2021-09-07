@@ -4,9 +4,10 @@ import { AirDrop } from './utils/airDrop';
 import { createAssociatedTokenAccount } from './components/associatedAccounts'
 import { createSupply } from './components/initial_supply';
 import {TokenCreation} from './components/tokenCreation';
-import TransferToken from './react components/TransferToken';
+import TransferToken from './react components/TransferToken/TransferToken';
 import CheckAccount from './react components/CheckAccount';
 import './App.css';
+
 
 const App = () => {
     const [count, setCount] = useState();
@@ -17,7 +18,7 @@ const App = () => {
     const [decimal, setDecimal] = useState(0);
 
     useEffect(() => {}, [pubKey])
-    
+
 /////////////////////////////////////////////////////////////Connections////////////////////////////////////////////    
     const getConnectedWallet = async()=> {    
     const provider = await window.solana;
@@ -77,6 +78,7 @@ return (
             <br />
             <button onClick = {connectWallet}>Connect Here!</button>
             <button onClick = {disconnectWallet}>Disconnect Here!</button>
+            <button onClick={() => AirDrop(pubKey)}>AirDrop</button>
             <br />
             <br />
             <br />
@@ -88,7 +90,6 @@ return (
             <input type="text" onChange = {(e) => setDecimal(e.target.value)} />
             <br />
             <br />
-            <button onClick={() => AirDrop(pubKey)}>AirDrop</button>
             <button onClick={TokenCreationHandler}>TokenCreation</button>
             <br />
             <br />
@@ -108,6 +109,8 @@ return (
             <br />
             <br />
             <CheckAccount payer = {pubKey} />
+            <br />
+            <br />
         </div>
     )
 }
