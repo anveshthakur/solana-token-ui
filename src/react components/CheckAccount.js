@@ -2,12 +2,12 @@ import { useState } from "react";
 import {getOrCreateAssociatedAccount} from '../components/getOrCreateAssociatedAccount';
 
 
-const CheckAccount = () => {
+const CheckAccount = ({payer}) => {
     const [mint, setMint] = useState()
     const [owner, setOwner] = useState()
     
     const submitHandler = async() => {
-        await getOrCreateAssociatedAccount(owner, mint)
+        await getOrCreateAssociatedAccount(owner, mint, payer)
     }
 
     return (

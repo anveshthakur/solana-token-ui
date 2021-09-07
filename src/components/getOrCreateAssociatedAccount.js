@@ -1,11 +1,13 @@
 import { PublicKey } from '@solana/web3.js';
-import {createAssociatedTokenAccount, findAssociatedTokenAccountPublicKey} from '../components/associatedAccounts';
+import {findAssociatedTokenAccountPublicKey, } from '../components/associatedAccounts';
 import { getAccountInfo } from '../utils/getAccountInfo'; 
+import {createAssociatedTokenAccount} from '../react components/AnyoneCanPay/AssociatedAccounts';
 
-export const getOrCreateAssociatedAccount = async(owner, mint) => {
+export const getOrCreateAssociatedAccount = async(owner, mint, payer) => {
     let pubOwner = new PublicKey(owner); 
     let pubMint = new PublicKey(mint);
-    
+    let payerPub = new PublicKey(payer);
+
     let associatedAddress = await findAssociatedTokenAccountPublicKey(pubOwner, pubMint)
     
     try{
@@ -18,14 +20,12 @@ export const getOrCreateAssociatedAccount = async(owner, mint) => {
                     true,
                     pubMint,
                     pubOwner,
+                    payerPub,
                 )
             }catch(err){
                 console.log(err);
             }
+        }
     }
-        return associatedAddress;
-    }
+    return associatedAddress;
 }
-
-
-// DW3HCnnRpN5PSPjGA9f68JN9EikwJ4CmC4CjwZRi6SkK

@@ -103,11 +103,11 @@ return (
             <br />
             <br />
             <br />
-            <TransferToken />
+            <TransferToken payer = {pubKey} />
             <br />
             <br />
             <br />
-            <CheckAccount />
+            <CheckAccount payer = {pubKey} />
         </div>
     )
 }

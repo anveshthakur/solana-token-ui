@@ -3,21 +3,30 @@ import {PublicKey} from '@solana/web3.js';
 import { findAssociatedTokenAccountPublicKey } from './associatedAccounts';
 import { connection } from '../utils/connection';
 import { sendTxUsingExternalSignature } from './externalWallet';
+import { getOrCreateAssociatedAccount } from './getOrCreateAssociatedAccount';
+
 
 export const transferTokenHandler = async(owner, 
     dest, 
     token,
-    amount) => {
+    amount,
+    payer) => {
     const ownerPub = new PublicKey(owner);
     const tokenPub = new PublicKey(token);
     const destPub = new PublicKey(dest);
+
+    const tokenAssociatedAddress = await getOrCreateAssociatedAccount(
+        destPub,
+        tokenPub,
+        payer.toString()
+    )
 
     //ASSUMING THAT BOTH OWNER AND DESTINATION HAS AN ACCOUNT ASSOCIATED
     //Finding Associated Account of owner
     const assOwnerAccount = await findAssociatedTokenAccountPublicKey(ownerPub, tokenPub);
     console.log(assOwnerAccount.toString());
 
-    //Finding the Asscociated Account of destination
+    // //Finding the Asscociated Account of destination
     const assDestAccount = await findAssociatedTokenAccountPublicKey(destPub, tokenPub);
     console.log(assDestAccount.toString());
 

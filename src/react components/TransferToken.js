@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {transferTokenHandler} from '../components/transferToken'
 
-const TransferToken = () => {
+const TransferToken = ({payer}) => {
     
     const [owner, setOwner] = useState();
     const [destination, setDestination] = useState();
@@ -33,7 +33,7 @@ const TransferToken = () => {
                 <br />
                 <br />
             </form>
-            <button onClick = {() => transferTokenHandler(owner, destination, transferToken, amount)}> Transfer </button>
+            <button onClick = {() => transferTokenHandler(owner, destination, transferToken, amount, payer)}> Transfer </button>
         </>
     )
 }
