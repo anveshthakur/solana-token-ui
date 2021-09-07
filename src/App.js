@@ -75,6 +75,11 @@ return (
         <div className = "App">
             <h1>Hey: { pubKey ? pubKey.toString() : ""}</h1>
             <br />
+            <button onClick = {connectWallet}>Connect Here!</button>
+            <button onClick = {disconnectWallet}>Disconnect Here!</button>
+            <br />
+            <br />
+            <br />
             <label>Amount: </label>
             <input type="text" onChange = {(e) => setAmount(e.target.value)} />
             <br />
@@ -83,12 +88,10 @@ return (
             <input type="text" onChange = {(e) => setDecimal(e.target.value)} />
             <br />
             <br />
-            <button onClick = {connectWallet}>Connect Here!</button>
-            <button onClick = {disconnectWallet}>Disconnect Here!</button>
-            <br />
-            <br />
             <button onClick={() => AirDrop(pubKey)}>AirDrop</button>
             <button onClick={TokenCreationHandler}>TokenCreation</button>
+            <br />
+            <br />
             <h2>MINT ACCOUNT: {mintKey ? mintKey : ''}</h2>
             <a  href={`https://explorer.solana.com/address/${mintKey}?cluster=devnet`}>Take me to my Token</a>
             {asAccount ? (
