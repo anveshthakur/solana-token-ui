@@ -13,7 +13,6 @@ export const transferTokenHandler = async(owner,
     const destPub = new PublicKey(dest);
 
     //ASSUMING THAT BOTH OWNER AND DESTINATION HAS AN ACCOUNT ASSOCIATED
-
     //Finding Associated Account of owner
     const assOwnerAccount = await findAssociatedTokenAccountPublicKey(ownerPub, tokenPub);
     console.log(assOwnerAccount.toString());

@@ -5,7 +5,7 @@ import { MintLayout, Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { connection } from '../utils/connection';
 import { sendTxUsingExternalSignature } from '../components/externalWallet';
 
-export const TokenCreation = async(pubKey) => {
+export const TokenCreation = async(pubKey, decimal) => {
         const mintAccount = Keypair.generate();
         
         const createAccountIx = SystemProgram.createAccount({
@@ -22,7 +22,7 @@ export const TokenCreation = async(pubKey) => {
         const initMintIx = Token.createInitMintInstruction(
             TOKEN_PROGRAM_ID,
             mintAccount.publicKey,
-            9, //DECIMALS 
+            decimal, //DECIMALS 
             pubKey, //mint Auth
             null, //freeze Auth
         )

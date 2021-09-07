@@ -1,0 +1,22 @@
+After Mint
+0.9985284
+
+After AssociatedAccount
+0.99648412
+
+After Both Associated Accounts
+0.99443984
+
+After minting Tokens
+0.99443484
+
+After Transfering the Tokens
+0.99442984
+
+
+
+UI - 
+After First Transaction
+0.99648
+
+

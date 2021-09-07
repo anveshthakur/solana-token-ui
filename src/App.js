@@ -1,10 +1,11 @@
-// version 0.1
+// version 0.2 //CAN NOW ADD TOKENS WITH OwN DECIMAL NUMBER OR SUPPLY  
 import React, { useEffect, useState } from 'react';
 import { AirDrop } from './utils/airDrop';
 import { createAssociatedTokenAccount } from './components/associatedAccounts'
 import { createSupply } from './components/initial_supply';
 import {TokenCreation} from './components/tokenCreation';
-import {transferTokenHandler} from './components/transferToken';
+import TransferToken from './react components/TransferToken';
+import CheckAccount from './react components/CheckAccount';
 import './App.css';
 
 const App = () => {
@@ -12,14 +13,10 @@ const App = () => {
     const [pubKey, setPubKey] = useState();
     const [mintKey, setMintKey] = useState();
     const [asAccount, setAsAccount] = useState(null);
-    const [owner, setOwner] = useState();
-    const [destination, setDestination] = useState();
-    const [transferToken, settransferToken] = useState();
-    const [amount, setAmount] = useState();
+    const [amount, setAmount] = useState(1);
+    const [decimal, setDecimal] = useState(0);
 
     useEffect(() => {}, [pubKey])
-
-
     
 /////////////////////////////////////////////////////////////Connections////////////////////////////////////////////    
     const getConnectedWallet = async()=> {    
@@ -51,7 +48,7 @@ const App = () => {
     }
 
     const TokenCreationHandler = async() => {
-        const createdTokenAccount = await TokenCreation(pubKey);
+        const createdTokenAccount = await TokenCreation(pubKey, decimal);
         
         setMintKey(createdTokenAccount.publicKey.toString());
 
@@ -69,36 +66,23 @@ const App = () => {
             res,
             pubKey,
             [],
-            1000000000
+            amount * Math.pow(10, decimal)
         )
     }
 
 
-
-////////////////////////////////////////////////////////TRANSFER-TOKENS//////////////////////////////////////////////////////////
-    const handleOwnerChange = (e) => {
-        e.preventDefault();
-        setOwner(e.target.value);
-    }
-
-    const handleDestinationChange = (e) => {
-        e.preventDefault();
-        setDestination(e.target.value);
-    }
-
-    const handleTokenMintChange = (e) => {
-        e.preventDefault();
-        settransferToken(e.target.value);
-    }
-
-    const handleTokenAmountChange = (e) => {
-        e.preventDefault();
-        setAmount(e.target.value);
-    }
-
 return (
         <div className = "App">
             <h1>Hey: { pubKey ? pubKey.toString() : ""}</h1>
+            <br />
+            <label>Amount: </label>
+            <input type="text" onChange = {(e) => setAmount(e.target.value)} />
+            <br />
+            <br />
+            <label>Decimal </label>
+            <input type="text" onChange = {(e) => setDecimal(e.target.value)} />
+            <br />
+            <br />
             <button onClick = {connectWallet}>Connect Here!</button>
             <button onClick = {disconnectWallet}>Disconnect Here!</button>
             <br />
@@ -116,31 +100,11 @@ return (
             <br />
             <br />
             <br />
+            <TransferToken />
             <br />
-            <h1>Transfer Tokens</h1>
-            <form>
-                
-                <label htmlFor=""> Owner: </label>
-                <input type="text" placeholder="Public Account Address" onChange={handleOwnerChange} />
-                <br />
-                <br />
-
-                <label htmlFor=""> Destination: </label>
-                <input type="text" placeholder="Public Account Address" onChange={handleDestinationChange} />
-                <br />
-                <br />
-
-                <label htmlFor=""> Token-Mint: </label>
-                <input type="text" placeholder="Public Account Address" onChange={handleTokenMintChange} />                        
-                <br />
-                <br />
-
-                <label htmlFor=""> Amount: </label>
-                <input type="text" placeholder="Token Value" onChange={handleTokenAmountChange} />                        
-                <br />
-                <br />
-            </form>
-            <button onClick = {() => transferTokenHandler(owner, destination, transferToken, amount)}> Transfer </button>
+            <br />
+            <br />
+            <CheckAccount />
         </div>
     )
 }

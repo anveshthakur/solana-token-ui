@@ -3,11 +3,11 @@ import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import {connection} from "../utils/connection";
 import { sendTxUsingExternalSignature } from './externalWallet';
 
-const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey(
+export const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey(
     "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
 );
 
-const createIx = (funderPubkey, associatedTokenAccountPublicKey, ownerPublicKey, tokenMintPublicKey
+export const createIx = (funderPubkey, associatedTokenAccountPublicKey, ownerPublicKey, tokenMintPublicKey
 ) =>
   new TransactionInstruction({
     programId: SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
@@ -39,7 +39,7 @@ export const findAssociatedTokenAccountPublicKey = async(ownerPublicKey, tokenMi
 )[0];
 
 export const createAssociatedTokenAccount = async(
-    feePayerSecret, //dont need it since we are externally signing the transaction 
+    feePayer, //dont need it since we are externally signing the transaction 
     feePayerSignsExternally, //true 
     tokenMintAddress, //token public address //
     ownerAddress //token owner address //string
@@ -62,7 +62,7 @@ export const createAssociatedTokenAccount = async(
             tokenMintPublicKey
         );
 
-        await sendTxUsingExternalSignature([ix], connection, null, [], ownerAddress);
+        await sendTxUsingExternalSignature([ix], connection, feePayer, [], ownerAddress);
     }
 
     return associatedTokenAccountPublicKey.toBase58();
