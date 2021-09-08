@@ -6,6 +6,7 @@ import { createSupply } from './components/initial_supply';
 import {TokenCreation} from './components/tokenCreation';
 import TransferToken from './react components/TransferToken/TransferToken';
 import CheckAccount from './react components/CheckAccount';
+import {TokenList} from './react components/TokenList/TokenList'
 import './App.css';
 
 
@@ -111,6 +112,7 @@ return (
             <CheckAccount payer = {pubKey} />
             <br />
             <br />
+            <TokenList />
         </div>
     )
 }
